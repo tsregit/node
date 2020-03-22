@@ -1,0 +1,24 @@
+{
+  "name": "03-bases-node",
+  "version": "1.0.0",
+  "description": "Esta es una app de line de comandos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsregit/node.git"
+  },
+  "author": "Tomas Rosales",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsregit/node/issues"
+  },
+  "homepage": "https://github.com/tsregit/node#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {}
+}
