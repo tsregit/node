@@ -2,7 +2,7 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const usuario = require('./routes/usuario');
+
 
 app = express();
 
@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use('/usuario', usuario);
+app.use(require('./routes'));
+
 
 mongoose.connect(process.env.URL_DB, (err, resp) => {
     if(err) throw err;
@@ -23,5 +24,4 @@ mongoose.connect(process.env.URL_DB, (err, resp) => {
 
 app.listen(process.env.PORT, () => {
     console.log(`Escuchando en el puerto ${process.env.PORT}`);
-    
 });

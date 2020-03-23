@@ -4,9 +4,10 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 var router = express.Router();
 const Usuario = require('../models/usuario');
+const { verificaToken, verifyAdminRole } = require('../middlewares/authentication');
 
 
-router.get('/', (req, res, next) => {
+router.get('/', verificaToken, (req, res, next) => {
     const skip = req.query.desde || 0;
     const limit = req.query.hasta || 10;
     Usuario
@@ -32,7 +33,7 @@ router.get('/', (req, res, next) => {
 });
 
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id',verificaToken , (req, res, next) => {
     const id = req.params.id;
     Usuario
     .find({estado: true})
@@ -51,7 +52,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', [verificaToken, verifyAdminRole], (req, res, next) => {
     let body = req.body;    
     const {nombre, email, password, role } = body;
     if(!nombre) {
@@ -82,7 +83,7 @@ router.post('/', function (req, res, next) {
     }
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', [verificaToken, verifyAdminRole], (req, res, next) => {
     const id = req.params.id;
     const body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
@@ -100,7 +101,7 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', [verificaToken, verifyAdminRole], (req, res, next) => {
     const id = req.params.id;
     Usuario.findOne({_id: id, estado: false}, (err, existeUsuario) => {
         if(err) {
