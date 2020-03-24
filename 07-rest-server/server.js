@@ -2,7 +2,7 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
-
+const path = require('path');
 
 app = express();
 
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use(require('./routes'));
 
+app.use(express.static(path.resolve(__dirname , 'public')));
 
 mongoose.connect(process.env.URL_DB, (err, resp) => {
     if(err) throw err;
