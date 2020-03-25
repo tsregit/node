@@ -1,10 +1,13 @@
 require('./config/config');
-
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const path = require('path');
 
 app = express();
+
+// default options
+app.use(fileUpload());
 
 const bodyParser = require('body-parser');
 
